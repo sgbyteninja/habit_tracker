@@ -6,7 +6,7 @@ from Habit_Tracker import Connector, Analyzer, Error_Handling
 
 # Testing creating a new habit
 def test_insert_habit(monkeypatch):
-    # Simulate user inputs
+   # Simulate user inputs
     habit_name_input = "Test"
     habit_interval_input = "1"
 
@@ -241,9 +241,8 @@ def test_get_all_habits():
         == True
     )
 
-    # Testing getting a list of all tracking entries of a habit
 
-
+ # Testing to see if the df of tracking show right
 def test_get_tracking_entries(monkeypatch):
     # Simulate user input for habit_name
     habit_name_input = "Hiking"

@@ -1,7 +1,7 @@
 # # Packages
 import pandas as pd
 
-# Tool for avoiding format issues
+# Tool for avoiding format issues, please save me python god.
 import datetime as dt
 from datetime import datetime, timedelta
 
@@ -70,14 +70,16 @@ class Connector:
         """
         )
 
-        # save changes and close Connection
         conn.commit()
         conn.close()
 
+    # a function that will trigger if one year after initial start up expires
     def one_year_has_passed(self):
         try:
             df = analyzer.get_all_calendar()
 
+            # it will fill 365 new entries into the calender, and if the current date is not within the calender
+            # it will fill up with the while loop until the current date.
             while (
                 str(dt.date.today()) in list(analyzer.get_all_calendar().date)
             ) == False:
@@ -121,6 +123,7 @@ class Connector:
             conn.commit()
         except sqlite3.Error as e:
             print(e)
+
             # Check if the connection object exists before closing
             if "conn" in locals() and conn is not None:
                 cursor.close()
@@ -197,7 +200,7 @@ class Connector:
             conn = sqlite3.connect(database=self.database)
             cursor = conn.cursor()
 
-            # Input current time (HH:MM)
+            # Input current time
             current_datetime = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             # SELECT Statement to get the habit-id of the entered habit
@@ -398,6 +401,7 @@ class Analyzer:
         current_streak_start = habit_df.iloc[0]["idcalendar"]
         current_streak_end = habit_df.iloc[0]["idcalendar"]
 
+        # here is where the magic happens
         for i in range(1, len(habit_df)):
             time_diff = (
                 habit_df.iloc[i]["idcalendar"] - habit_df.iloc[i - 1]["idcalendar"]
@@ -465,10 +469,12 @@ class Analyzer:
         return habit_longest_streak, overall_longest_streak_habit
 
 
+# a class that will handle user input
 class Error_Handling:
     def __init__(self):
         pass
 
+    # check if there are entries in the calendar, so to warn the user, they might overwrite an existing database
     def account_exists(self):
         conn = sqlite3.connect(connector.database)
         cursor = conn.cursor()
@@ -482,7 +488,7 @@ class Error_Handling:
         # If there is at least one entry in the entity 'calendar', an account is considered to exist
         return count > 0
 
-    # check if there are two entries for one day
+    # check if there are two entries for one day, so no retracking happens
     def entry_checker(self, date, habit_name):
         tracking_df = analyzer.get_tracking_entries(habit_name)
         tracking_df["idcalendar"] = pd.to_datetime(tracking_df["idcalendar"])
@@ -514,7 +520,7 @@ class Error_Handling:
             print(f"SQLite error: {e}")
             return False
 
-    # Check if habit exists
+    # Check if habit exists, so that tracking is possible
     def habit_exists(self, habit_name):
         habit_df = analyzer.get_all_habits()
         if habit_name not in habit_df["habit_name"].values:
@@ -530,6 +536,7 @@ class Communicator:
 
     # Welcome User
     def welcome(self):
+        # a warm colorful hello, yet only once
         if not self.welcomed:
             print("\033[1;33m\t    HELLO, WELCOME TO YOUR HABIT TRACKER.\033[0m")
             self.welcomed = True
@@ -552,10 +559,12 @@ class Communicator:
             ["13", "Delete a tracking entry for a habit"],
             ["0", "Exit"],
         ]
+        # tabulate for the eye appealing interface
         print(
             tabulate(options, headers=["Option", "Description"], tablefmt="fancy_grid")
         )
 
+    #
     def run(self):
         self.welcome()
 
@@ -592,7 +601,7 @@ class Communicator:
                     "Enter the name of the habit you want to track."
                 ).capitalize()
 
-                # Check if habit already exists (case-insensitive)
+                # Check if habit already exists
                 existing_habits = analyzer.get_all_habits()
 
                 if habit_name in list(existing_habits.habit_name):
@@ -635,7 +644,7 @@ class Communicator:
                 )
                 self.run()
 
-            # Get a list of all habits
+            # Get a list of all habits stored in the database
             elif user_input == "5":
                 print("Here is a list of all habits, you have created.")
                 habit_list = analyzer.get_all_habits()
@@ -671,7 +680,7 @@ class Communicator:
 
                 self.run()
 
-            # Track habit subsequently
+            # Track habit on an other date
             elif user_input == "8":
                 try:
                     specific_date = input(
@@ -808,6 +817,7 @@ class Communicator:
                 habit_name = input(
                     "Enter the name of the habit for which you want to delete a tracking_entry: \n"
                 ).capitalize()
+
                 # Check if habit exists
                 if error_handling.habit_exists(habit_name) == True:
                     specific_date = input(

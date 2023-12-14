@@ -15,7 +15,6 @@ from tabulate import tabulate
 import sys
 
 # support for regular expressions
-import re
 import random
 
 # %%
@@ -40,7 +39,7 @@ for day in range((end_date - start_date).days + 1):
     current_date = start_date + timedelta(days=day)
     cursor.execute("INSERT INTO calendar (date) VALUES (?)", (current_date.date(),))
 
-# Tabelle 2: habit
+# Entitity 2: habit
 cursor.execute("""drop table habit""")
 cursor.execute(
     """
@@ -67,7 +66,7 @@ for habit_name, habit_interval in habits_data:
         (habit_name, habit_interval),
     )
 
-# Relationship-Tabelle
+# Relationship-Entity
 cursor.execute("""drop table calendar_has_habit""")
 cursor.execute(
     """
@@ -80,10 +79,8 @@ cursor.execute(
     )
 """
 )
-# Generate test data for the last two months
 
 
-# save changes and close Connection
 conn.commit()
 conn.close()
 
