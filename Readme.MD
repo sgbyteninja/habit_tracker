@@ -1,6 +1,6 @@
 # Habit Tracker
 
-Welcome to my Habit Tracker! This project was developed as part of the course ‘Object Oriented and Functional Programming’ with Python under the supervision of Prof. Dr. Max Pumperla at the IU. The program allows users to create, manage, and track habits over time. The program also allows users to determine the current streak length and the longest streak length of a habit, as well as the habit with the longest streak length of all.
+Welcome to my habit tracker! This project was developed as part of the course ‘Object Oriented and Functional Programming’ with Python under the supervision of Prof. Dr. Max Pumperla at the IU. The program allows users to create, manage, and track habits over time. The program also allows users to determine the current streak length and the longest streak length of a habit, as well as the habit with the longest streak length of all.
 
 ## Installation
 
