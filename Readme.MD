@@ -4,7 +4,7 @@ Welcome to my Habit Tracker! This project was developed as part of the course �
 
 ## Installation
 
-In order to ensure a consistent and reproducible development environment for this project, a virtual environment named ‘habit_tracker_env” has been created with Python 3.10.9. If you want, you can create the environment from the ‘habit_tracker_env.yaml’.
+In order to ensure a consistent and reproducible development environment for this project, a virtual environment named ‘habit_tracker_env” has been created with Python 3.10.9. If you want, you can create the environment from the ‘habit_tracker_env.yml’.
 
 ```bash
 $ conda env create -f habit_tracker_env.yml
@@ -62,6 +62,3 @@ The `Error Handling` class prevents program crashes due to incorrect user input.
 
 The `Communicator` class handles user communication, providing clear instructions and guiding users through options. It continuously runs until the user chooses to exit (Option 0).
 
-## Contributor
-
-This program was developed by Sandra Gedig. Licensed under Sandra Gedig.
